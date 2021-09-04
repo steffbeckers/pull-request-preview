@@ -12,3 +12,9 @@ services:
     build:
       context: ../aspnet-core/
       dockerfile: src/PullRequestPreview.HttpApi.Host/Dockerfile
+
+  db-migrator:
+    image: registry.steffbeckers.eu/pull-request-preview/db-migrator
+    build:
+      context: ../aspnet-core/
+      dockerfile: src/PullRequestPreview.DbMigrator/Dockerfile

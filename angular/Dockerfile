@@ -14,7 +14,7 @@ RUN npm run build:prod
 # production stage
 FROM nginx as production-stage
 
-COPY --from=build-stage /app/dist/snooker /usr/share/nginx/html
+COPY --from=build-stage /app/dist/pull-request-preview /usr/share/nginx/html
 
 COPY --from=build-stage /app/nginx.conf /etc/nginx/nginx.conf
 

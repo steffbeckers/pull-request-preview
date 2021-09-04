@@ -6,8 +6,7 @@ using Volo.Abp.Application.Services;
 
 namespace PullRequestPreview
 {
-    /* Inherit your application services from this class.
-     */
+    // Inherit your application services from this class.
     public abstract class PullRequestPreviewAppService : ApplicationService
     {
         protected PullRequestPreviewAppService()

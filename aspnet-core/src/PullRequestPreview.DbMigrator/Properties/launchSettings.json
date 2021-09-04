@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PullRequestPreview.DbMigrator": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 parameters:
-  - name: "additionalImageTags"
+  - name: additionalImageTags
     type: string
 
 steps:

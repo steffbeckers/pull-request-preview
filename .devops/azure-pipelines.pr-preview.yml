@@ -5,6 +5,6 @@ pool:
   name: Default
 
 steps:
-  - tempate: templates/docker-build-push.yml
+  - template: templates/docker-build-push.yml
     parameters:
       additionalImageTags: "$(System.PullRequest.PullRequestId)"

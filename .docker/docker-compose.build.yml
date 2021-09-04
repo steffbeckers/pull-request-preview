@@ -17,4 +17,4 @@ services:
     image: registry.steffbeckers.eu/pull-request-preview/db-migrator
     build:
       context: ../aspnet-core/
-      dockerfile: src/PullRequestPreview.HttpApi.Host/Dockerfile
+      dockerfile: src/PullRequestPreview.DbMigrator/Dockerfile

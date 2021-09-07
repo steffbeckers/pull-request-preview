@@ -1,6 +1,6 @@
 # PR Preview
 
-Testing automated Azure DevOps PR preview deployments in K8s.
+Testing automated Azure DevOps PR preview deployments with K8s.
 
 ## Azure DevOps project
 

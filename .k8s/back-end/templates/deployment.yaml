@@ -46,6 +46,8 @@ spec:
               value: {{ .Values.app.origin }}
             - name: App__RedirectAllowedUrls
               value: {{ .Values.app.origin }}
+            - name: ConnectionStrings__Default
+              value: {{ .Values.app.connectionString }}
           ports:
             - name: http
               containerPort: 80

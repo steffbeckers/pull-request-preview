@@ -4,6 +4,7 @@
 
 app:
   origin: https://pull-request-preview.steffbeckers.eu
+  connectionString: Server=mssql-mssql-linux.mssql.svc.cluster.local;Database=PullRequestPreview;User ID=app;Password=*=ac5bLtp?Dd9TnUkEJD
 
 replicaCount: 1
 

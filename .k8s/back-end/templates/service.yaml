@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "pull-request-preview.fullname" . }}
+  name: {{ include "back-end.fullname" . }}
   labels:
-    {{- include "pull-request-preview.labels" . | nindent 4 }}
+    {{- include "back-end.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "pull-request-preview.selectorLabels" . | nindent 4 }}
+    {{- include "back-end.selectorLabels" . | nindent 4 }}

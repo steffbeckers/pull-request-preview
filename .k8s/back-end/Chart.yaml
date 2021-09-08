@@ -1,6 +1,6 @@
 apiVersion: v2
-name: pull-request-preview
-description: A Helm chart for Kubernetes
+name: pull-request-preview-back-end
+description: Pull request preview back-end
 
 # A chart can be either an 'application' or a 'library' chart.
 #

@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "pull-request-preview.fullname" . -}}
+{{- $fullName := include "back-end.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -17,7 +17,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "pull-request-preview.labels" . | nindent 4 }}
+    {{- include "back-end.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -45,63 +45,63 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /__bundles
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /Abp
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /account
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /Account
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /connect
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /libs
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           - path: /swagger
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Chart.Name }}-back-end"
+                name: "{{ $fullName }}"
                 port:
                   number: 80
           {{- range .paths }}

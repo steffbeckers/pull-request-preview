@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 app:
-  origin: https://pull-request-preview.steffbeckers.eu
+  domain: pull-request-preview.steffbeckers.eu
   connectionString: Server=mssql-mssql-linux.mssql.svc.cluster.local;Database=PullRequestPreview;User ID=app;Password=*=ac5bLtp?Dd9TnUkEJD
 
 replicaCount: 1
@@ -12,7 +12,7 @@ image:
   repository: registry.steffbeckers.eu/pull-request-preview/back-end
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: latest
 
 imagePullSecrets: []
 nameOverride: ""
@@ -53,12 +53,6 @@ ingress:
     ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header   X-Forwarded-Proto $scheme;
-  hosts:
-    - host: pull-request-preview.steffbeckers.eu
-  tls:
-    - secretName: pull-request-preview.steffbeckers.eu-tls
-      hosts:
-        - pull-request-preview.steffbeckers.eu
 
 resources:
   {}

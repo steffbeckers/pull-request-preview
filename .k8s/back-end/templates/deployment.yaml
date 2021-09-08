@@ -39,13 +39,13 @@ spec:
             - name: ASPNETCORE_URLS
               value: http://0.0.0.0:80
             - name: AuthServer__Authority
-              value: {{ .Values.app.origin }}
+              value: "https://{{ .Values.app.domain }}"
             - name: App__SelfUrl
-              value: {{ .Values.app.origin }}
+              value: "https://{{ .Values.app.domain }}"
             - name: App__CorsOrigins
-              value: {{ .Values.app.origin }}
+              value: "https://{{ .Values.app.domain }}"
             - name: App__RedirectAllowedUrls
-              value: {{ .Values.app.origin }}
+              value: "https://{{ .Values.app.domain }}"
             - name: ConnectionStrings__Default
               value: {{ .Values.app.connectionString }}
           ports:

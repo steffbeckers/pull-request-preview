@@ -14,6 +14,7 @@ helm upgrade pr-2 back-end `
 --namespace pull-request-preview-pr-2 `
 --create-namespace `
 --set image.tag=pr-2 `
+--set image.pullPolicy=Always `
 --set app.domain=2.pr.pull-request-preview.steffbeckers.eu `
 --set app.connectionString="Server=mssql-mssql-linux.mssql.svc.cluster.local;Database=PullRequestPreview-PR-2;User ID=app;Password=*=ac5bLtp?Dd9TnUkEJD"
 ```

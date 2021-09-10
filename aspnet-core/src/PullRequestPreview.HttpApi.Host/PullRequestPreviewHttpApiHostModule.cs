@@ -28,6 +28,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace PullRequestPreview
 {
@@ -58,6 +59,8 @@ namespace PullRequestPreview
             ConfigureVirtualFileSystem(context);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context, configuration);
+
+            ConfigureForwardedHeaders();
         }
 
         private void ConfigureBundles()
@@ -141,10 +144,22 @@ namespace PullRequestPreview
                 },
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "PullRequestPreview API", Version = "v1"});
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "PullRequestPreview API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
                     options.CustomSchemaIds(type => type.FullName);
                 });
+        }
+
+        private void ConfigureForwardedHeaders()
+        {
+            // Forwarding request headers from proxy https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-5.0#forwarded-headers-middleware-order
+            Configure<ForwardedHeadersOptions>(options =>
+            {
+                // https://github.com/aspnet/AspNetCore/issues/5970#issuecomment-475388872
+                //options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                // This works to pass the https scheme protocol to the container
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
+            });
         }
 
         private void ConfigureLocalization()
@@ -175,21 +190,21 @@ namespace PullRequestPreview
         {
             context.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy( builder =>
-                {
-                    builder
-                        .WithOrigins(
-                            configuration["App:CorsOrigins"]
-                                .Split(",", StringSplitOptions.RemoveEmptyEntries)
-                                .Select(o => o.RemovePostFix("/"))
-                                .ToArray()
-                        )
-                        .WithAbpExposedHeaders()
-                        .SetIsOriginAllowedToAllowWildcardSubdomains()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
+                options.AddDefaultPolicy(builder =>
+               {
+                   builder
+                       .WithOrigins(
+                           configuration["App:CorsOrigins"]
+                               .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                               .Select(o => o.RemovePostFix("/"))
+                               .ToArray()
+                       )
+                       .WithAbpExposedHeaders()
+                       .SetIsOriginAllowedToAllowWildcardSubdomains()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .AllowCredentials();
+               });
             });
         }
 
@@ -202,6 +217,8 @@ namespace PullRequestPreview
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseForwardedHeaders();
 
             app.UseAbpRequestLocalization();
 
